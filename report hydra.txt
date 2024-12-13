@@ -1,0 +1,12 @@
+Come primo passo ho creato l'utente test_user , con il comando adduser e poi ho configurato la password iniziale testpass.
+Poi tornando sul profilo kali ho dato i priveligi si sudo a test_user con il comando 
+-sudo usermod -aG sudo test_user
+aggiungendolo così al gruppo sudo
+In seguito da profilo test_user ho avviato il servizio ssh con il comando -service ssh start ,
+in seguito ho apportato una modifica alla configurazione sshd_config ,abilitando l'accesso all'utente root in ssh ,tramite la scrittura della  riga PermitRootLogin yes , poi ho riavviato il servizio con il comando
+-sudo systemctl restart sshd.
+In seguito ho cambiato utente e sono tornato all 'utente kali , ho creato 2 file con psw.txt e usr.txt  , e ho startato hydra con il comando 
+-hydra -L usr.txt -P psw.txt 192.168.50.100 ssh -t2 ssh -V, la stessa cosa ho fatto con il servizio FTP. Dapprima installandolo da profilo test_user , e poi avviando con il comando
+- service vsftpd start
+in seguito da profilo kali ho lanciato il comando 
+-hydra -L usr.txt -P psw.txt 192.168.50.100 -t16 ftp
